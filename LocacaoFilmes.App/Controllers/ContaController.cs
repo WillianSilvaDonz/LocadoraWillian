@@ -21,7 +21,7 @@ namespace LocacaoFilmes.App.Controllers
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
-            return RedirectToAction("Home", "Index");
+            return RedirectToAction("Index", "Home", null);
         }
 
         [HttpGet]
@@ -42,7 +42,7 @@ namespace LocacaoFilmes.App.Controllers
                     if (!string.IsNullOrWhiteSpace(returnUrl))
                         return Redirect(returnUrl);
 
-                    return RedirectToAction("Index", "Location");
+                    return RedirectToAction("Index", "Home", null);
                 }
 
                 ModelState.AddModelError(string.Empty, "Credênciais inválidas.");
@@ -73,7 +73,7 @@ namespace LocacaoFilmes.App.Controllers
                 if (result.Succeeded)
                 {
                     await _signInManager.SignInAsync(user, false);
-                    return RedirectToAction("Index", "Location");
+                    return RedirectToAction("Index", "Home", null);
                 }
 
                 foreach (var error in result.Errors)
