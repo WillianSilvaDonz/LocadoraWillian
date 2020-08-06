@@ -1,0 +1,87 @@
+﻿@using LocacaoFilmes.App.Models.Cadastro
+@using LocacaoFilmes.App.Models.Compartilhado
+
+@model PaginaViewModel<FilmeViewModel>
+
+@{ ViewData["Title"] = "Listagem"; }
+
+<h2>Listagem de Filmes</h2>
+<hr />
+
+<p>
+    <a asp-action="Create" class="btn btn-success">Cadastrar</a>
+</p>
+<br />
+<form asp-action="DeletaTodos">
+    <div class="form-group">
+        <input type="submit" value="Excluir seleção" class="btn btn-default deletaTodos" disabled />
+        <div class="pull-right">
+            <partial name="../Shared/_Pagination" />
+        </div>
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    <input name="all" class="selecionaTodos" title="Selecionar todos" type="checkbox" />
+                </th>
+                <th>
+                    Nome
+                </th>
+                <th>
+                    Gênero
+                </th>
+                <th>
+                    Data de criação
+                </th>
+                <th>
+                    Ativo
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Lista)
+            {
+            <tr>
+                <td>
+                    <input name="ids" class="select" value="@item.Id" type="checkbox" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GeneroNome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DataCriacao)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ativo)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Detalhes</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Excluir</a>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</form>
+
+@section Scripts {
+    <script>
+        $(".selecionaTodos").click(function (ev) {
+            var checked = $(ev.target).is(":checked");
+            $(".select").prop('checked', checked);
+            $(".deletaTodos").prop("disabled", !checked);
+        });
+
+        $(".select").change(function (ev) {
+            var checked = $(ev.target).is(":checked");
+            $(".deletaTodos").prop("disabled", !checked);
+        });
+    </script>
+}

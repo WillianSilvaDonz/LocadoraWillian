@@ -1,0 +1,33 @@
+﻿@model LocacaoFilmes.App.Models.Cadastro.GeneroViewModel
+
+@{ ViewData["Title"] = "Detalhes"; }
+
+<h2>Detalhes do gênero</h2>
+<hr />
+
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DataCriacao)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DataCriacao)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Ativo)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Ativo)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" class="btn btn-secondary" asp-route-id="@Model.Id">Editar</a> |
+    <a asp-action="Index">Voltar para a listagem</a>
+</div>

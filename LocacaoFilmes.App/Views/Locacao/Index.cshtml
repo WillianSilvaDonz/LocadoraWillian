@@ -1,0 +1,53 @@
+﻿@using LocacaoFilmes.App.Models.Cadastro
+@using LocacaoFilmes.App.Models.Compartilhado
+
+@model PaginaViewModel<LocacaoViewModel>
+
+@{ ViewData["Title"] = "Listagem"; }
+
+<h2>Listagem das Locação</h2>
+<hr />
+
+<p>
+    <a asp-action="Create" class="btn btn-success">Cadastrar</a>
+</p>
+<br />
+<form asp-action="DeletaTodos">
+    <div class="form-group">
+        <div class="pull-right">
+            <partial name="../Shared/_Pagination" />
+        </div>
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Cpf
+                </th>
+                <th>
+                    Data da Locação
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Lista)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CpfCliente)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DataLocacao)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Detalhes</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Excluir</a>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</form>

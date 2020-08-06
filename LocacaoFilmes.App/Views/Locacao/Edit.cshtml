@@ -1,0 +1,67 @@
+﻿@model LocacaoFilmes.App.Models.Cadastro.LocacaoViewModel
+
+@{ ViewData["Title"] = "Editar"; }
+
+    <h2>Edição de Locação</h2>
+
+<hr />
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="CpfCliente" class="control-label"></label>
+                <input asp-for="CpfCliente" class="form-control" data-mask="000.000.000-00" data-mask-reverse="true" />
+                <span asp-validation-for="CpfCliente" class="text-danger"></span>
+            </div>
+            <div>
+                <label asp-for="FilmesId" class="control-label"></label>
+                <select name="FilmesId" class="form-control filme-lista" multiple>
+                    @foreach (var movie in Model.Filmes)
+                    {
+                        <option value="@movie.Id" selected>@movie.Nome</option>
+                    }
+                </select>
+                <span asp-validation-for="FilmesId" class="text-danger"></span>
+            </div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <input type="submit" value="Salvar" class="btn btn-default btn-success" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Voltar para a listagem</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+<script>
+    $(document).ready(function () {
+        $('.filme-lista').select2({
+            minimumInputLength: 5,
+            closeOnSelect: false,
+            ajax: {
+                url: '/Filme/SelectList',
+                dataType: 'json',
+                processResults: function (data) {
+                    console.log(data);
+                    return {
+                        results: data
+                    };
+                },
+                placeholder: 'Buscar os Filmes',
+                "language": {
+                   "noResults": function(){
+                       return "Nenhum Resultado Encontrado";
+                   }
+                },
+            }
+        })
+    });
+</script>
+}

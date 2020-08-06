@@ -1,0 +1,50 @@
+﻿@model LocacaoFilmes.App.Models.Cadastro.LocacaoViewModel
+
+@{ ViewData["Title"] = "Excluir"; }
+
+<h2>Excluir Locacao</h2>
+<hr />
+
+<div class="alert alert-warning" role="alert">
+    <strong>Tem certeza que deseja excluir esta locação?</strong>
+</div>
+
+<hr />
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CpfCliente)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CpfCliente)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DataLocacao)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DataLocacao)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FilmesId)
+        </dt>
+        <dd>
+            @foreach (var movie in Model.Filmes)
+            {
+                @movie.Nome <br />
+            }
+        </dd>
+    </dl>
+
+    @if (Model.CanDelete)
+    {
+        <form asp-action="Delete">
+            <input type="hidden" asp-for="Id" />
+            <input type="submit" value="Excluir" class="btn btn-default btn-danger" /> |
+            <a asp-action="Index">Voltar para a listagem</a>
+        </form>
+    }
+    else
+    {
+        <a asp-action="Index">Voltar para a listagem</a>
+    }
+</div>

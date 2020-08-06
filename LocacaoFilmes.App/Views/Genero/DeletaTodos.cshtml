@@ -1,0 +1,63 @@
+﻿@model IEnumerable<LocacaoFilmes.App.Models.Cadastro.GeneroViewModel>
+
+@{ ViewData["Title"] = "Excluir"; }
+
+<h2>Excluir gêneros</h2>
+<hr />
+
+<div class="alert alert-warning" role="alert">
+    <strong>Os genêros <span class="label label-success">Em uso</span> não podem ser excluídos!</strong>
+</div>
+
+<hr />
+
+<form asp-action="DeleteManyConfirmed">
+
+    <input type="submit" value="Excluir os que não estão em uso!" class="btn btn-default btn-danger" /> |
+    <a asp-action="Index" class="btn btn-default">Voltar para a listagem</a>
+
+    <table class="table" style="margin-top:20px;">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Nome)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DataCriacao)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Ativo)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nome)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DataCriacao)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Ativo)
+                    </td>
+                    <td>
+                        @if (!item.CanDelete)
+                        {
+                            <span class="label label-success">Em uso</span>
+                        }
+                        else
+                        {
+                            <span class="label label-danger">Excluir</span>
+                            <input type="hidden" name="ids" value="@item.Id" />
+                        }
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</form>

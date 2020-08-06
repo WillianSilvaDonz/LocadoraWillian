@@ -1,0 +1,56 @@
+﻿@model LocacaoFilmes.App.Models.Cadastro.GeneroViewModel
+
+@{ ViewData["Title"] = "Excluir"; }
+
+<h2>Excluir gênero</h2>
+<hr />
+
+@if (Model.CanDelete)
+{
+    <div class="alert alert-warning" role="alert">
+        <strong>Tem certeza que deseja excluir este gênero?</strong>
+    </div>
+}
+else
+{
+    <div class="alert alert-danger" role="alert">
+        <strong> Não é possível excluir este genêro, ele está sendo utilizado em alguns filmes.</strong>
+    </div>
+}
+
+<hr />
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DataCriacao)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DataCriacao)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Ativo)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Ativo)
+        </dd>
+    </dl>
+
+    @if (Model.CanDelete)
+    {
+        <form asp-action="Delete">
+            <input type="hidden" asp-for="Id" />
+            <input type="submit" value="Excluir" class="btn btn-default btn-danger" /> |
+            <a asp-action="Index">Voltar para a listagem</a>
+        </form>
+    }
+    else
+    {
+        <a asp-action="Index">Voltar para a listagem</a>
+    }
+</div>

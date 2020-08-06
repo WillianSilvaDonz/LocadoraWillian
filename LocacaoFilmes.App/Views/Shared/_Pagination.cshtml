@@ -1,0 +1,15 @@
+﻿@{
+    var prevDisabled = !Model.TemPaginaAnterior ? "disabled" : "";
+    var nextDisabled = !Model.TemProximaPagina ? "disabled" : "";
+}
+
+<a asp-action="Index"
+   asp-route-page="@Model.PaginaAnterior"
+   class="btn btn-default btn-primary @prevDisabled">
+    Anterior
+</a>
+<a asp-action="Index"
+   asp-route-page="@Model.ProximaPagina"
+   class="btn btn-default btn-primary @nextDisabled">
+    Próxima
+</a>
